@@ -1,0 +1,200 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    xmlns:dist="http://schemas.android.com/apk/distribution"
+4    package="org.tensorflow.lite.examples.objectdetection"
+5    android:versionCode="1"
+6    android:versionName="1.0.0" >
+7
+8    <uses-sdk
+9        android:minSdkVersion="21"
+9-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml
+10        android:targetSdkVersion="32" />
+10-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml
+11    <!-- Enable instant app support -->
+12    <dist:module dist:instant="true" /> <!-- Declare features -->
+12-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:7:5-40
+12-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:7:18-37
+13    <uses-feature android:name="android.hardware.camera" /> <!-- Declare permissions -->
+13-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:8:5-60
+13-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:8:19-57
+14    <uses-permission android:name="android.permission.CAMERA" />
+14-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:9:5-65
+14-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:9:22-62
+15    <uses-permission android:name="android.permission.INTERNET" />
+15-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:10:5-66
+15-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:10:22-64
+16    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+17    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+18    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+19
+20    <application
+20-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:12:5-61:19
+21        android:allowBackup="true"
+21-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:13:9-35
+22        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+22-->[androidx.core:core:1.6.0] C:\Users\user\.gradle\caches\transforms-3\be4202b8dfa7ac8860fd56ed0631574b\transformed\core-1.6.0\AndroidManifest.xml:24:18-86
+23        android:debuggable="true"
+24        android:icon="@mipmap/ic_launcher"
+24-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:14:9-43
+25        android:label="@string/app_name"
+25-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:15:9-41
+26        android:roundIcon="@mipmap/ic_launcher_round"
+26-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:16:9-54
+27        android:taskAffinity=""
+27-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:17:9-32
+28        android:testOnly="true" >
+29        <activity
+29-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:19:9-37:20
+30            android:name="org.tensorflow.lite.examples.objectdetection.chatActivity"
+30-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:20:13-41
+31            android:exported="true"
+31-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:21:13-36
+32            android:icon="@mipmap/ic_launcher"
+32-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:24:13-47
+33            android:resizeableActivity="true"
+33-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:22:13-46
+34            android:rotationAnimation="seamless"
+34-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:23:13-49
+35            android:theme="@style/AppTheme" >
+35-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:25:13-44
+36            <intent-filter>
+36-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:28:13-32:29
+37                <action android:name="android.intent.action.MAIN" />
+37-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:29:17-69
+37-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:29:25-66
+38
+39                <category android:name="android.intent.category.LAUNCHER" />
+39-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:31:17-77
+39-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:31:27-74
+40            </intent-filter>
+41
+42            <meta-data
+42-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:34:13-36:36
+43                android:name="android.app.lib_name"
+43-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:35:17-52
+44                android:value="" />
+44-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:36:17-33
+45        </activity>
+46        <activity
+46-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:38:9-60:20
+47            android:name="org.tensorflow.lite.examples.objectdetection.MainActivity"
+47-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:39:13-41
+48            android:clearTaskOnLaunch="true"
+48-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:40:13-45
+49            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize"
+49-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:41:13-91
+50            android:exported="false"
+50-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:42:13-37
+51            android:icon="@mipmap/ic_launcher"
+51-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:43:13-47
+52            android:resizeableActivity="true"
+52-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:44:13-46
+53            android:rotationAnimation="seamless"
+53-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:45:13-49
+54            android:theme="@style/AppTheme" >
+54-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:46:13-44
+55
+56            <!-- Main app intent filter -->
+57            <!-- <intent-filter> -->
+58            <!-- <action android:name="android.intent.action.MAIN" /> -->
+59
+60
+61            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+62            <!-- </intent-filter> -->
+63
+64
+65            <!-- Declare notch support -->
+66            <meta-data
+66-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:57:13-59:40
+67                android:name="android.notch_support"
+67-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:58:17-53
+68                android:value="true" />
+68-->C:\Users\user\Downloads\android_play_services\app\src\main\AndroidManifest.xml:59:17-37
+69        </activity>
+70
+71        <uses-library
+71-->[androidx.window:window:1.0.0-alpha09] C:\Users\user\.gradle\caches\transforms-3\07fc6ab2efdac7159734993e9c51952d\transformed\jetified-window-1.0.0-alpha09\AndroidManifest.xml:25:9-27:40
+72            android:name="androidx.window.extensions"
+72-->[androidx.window:window:1.0.0-alpha09] C:\Users\user\.gradle\caches\transforms-3\07fc6ab2efdac7159734993e9c51952d\transformed\jetified-window-1.0.0-alpha09\AndroidManifest.xml:26:13-54
+73            android:required="false" />
+73-->[androidx.window:window:1.0.0-alpha09] C:\Users\user\.gradle\caches\transforms-3\07fc6ab2efdac7159734993e9c51952d\transformed\jetified-window-1.0.0-alpha09\AndroidManifest.xml:27:13-37
+74        <uses-library
+74-->[androidx.window:window:1.0.0-alpha09] C:\Users\user\.gradle\caches\transforms-3\07fc6ab2efdac7159734993e9c51952d\transformed\jetified-window-1.0.0-alpha09\AndroidManifest.xml:28:9-30:40
+75            android:name="androidx.window.sidecar"
+75-->[androidx.window:window:1.0.0-alpha09] C:\Users\user\.gradle\caches\transforms-3\07fc6ab2efdac7159734993e9c51952d\transformed\jetified-window-1.0.0-alpha09\AndroidManifest.xml:29:13-51
+76            android:required="false" />
+76-->[androidx.window:window:1.0.0-alpha09] C:\Users\user\.gradle\caches\transforms-3\07fc6ab2efdac7159734993e9c51952d\transformed\jetified-window-1.0.0-alpha09\AndroidManifest.xml:30:13-37
+77
+78        <service
+78-->[androidx.camera:camera-camera2:1.1.0-beta03] C:\Users\user\.gradle\caches\transforms-3\a3943d4a7f0cc9a5ec8636c90a545b6d\transformed\jetified-camera-camera2-1.1.0-beta03\AndroidManifest.xml:26:9-35:19
+79            android:name="androidx.camera.core.impl.MetadataHolderService"
+79-->[androidx.camera:camera-camera2:1.1.0-beta03] C:\Users\user\.gradle\caches\transforms-3\a3943d4a7f0cc9a5ec8636c90a545b6d\transformed\jetified-camera-camera2-1.1.0-beta03\AndroidManifest.xml:27:13-75
+80            android:enabled="false"
+80-->[androidx.camera:camera-camera2:1.1.0-beta03] C:\Users\user\.gradle\caches\transforms-3\a3943d4a7f0cc9a5ec8636c90a545b6d\transformed\jetified-camera-camera2-1.1.0-beta03\AndroidManifest.xml:28:13-36
+81            android:exported="false" >
+81-->[androidx.camera:camera-camera2:1.1.0-beta03] C:\Users\user\.gradle\caches\transforms-3\a3943d4a7f0cc9a5ec8636c90a545b6d\transformed\jetified-camera-camera2-1.1.0-beta03\AndroidManifest.xml:29:13-37
+82            <meta-data
+82-->[androidx.camera:camera-camera2:1.1.0-beta03] C:\Users\user\.gradle\caches\transforms-3\a3943d4a7f0cc9a5ec8636c90a545b6d\transformed\jetified-camera-camera2-1.1.0-beta03\AndroidManifest.xml:32:13-34:89
+83                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+83-->[androidx.camera:camera-camera2:1.1.0-beta03] C:\Users\user\.gradle\caches\transforms-3\a3943d4a7f0cc9a5ec8636c90a545b6d\transformed\jetified-camera-camera2-1.1.0-beta03\AndroidManifest.xml:33:17-103
+84                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+84-->[androidx.camera:camera-camera2:1.1.0-beta03] C:\Users\user\.gradle\caches\transforms-3\a3943d4a7f0cc9a5ec8636c90a545b6d\transformed\jetified-camera-camera2-1.1.0-beta03\AndroidManifest.xml:34:17-86
+85        </service>
+86        <service
+86-->[com.google.android.gms:play-services-tflite-gpu:16.0.0] C:\Users\user\.gradle\caches\transforms-3\14775590fb41d2475e909707af2a8fb9\transformed\jetified-play-services-tflite-gpu-16.0.0\AndroidManifest.xml:9:9-21:19
+87            android:name="com.google.android.gms.metadata.ModuleDependencies"
+87-->[com.google.android.gms:play-services-tflite-gpu:16.0.0] C:\Users\user\.gradle\caches\transforms-3\14775590fb41d2475e909707af2a8fb9\transformed\jetified-play-services-tflite-gpu-16.0.0\AndroidManifest.xml:10:13-78
+88            android:enabled="false"
+88-->[com.google.android.gms:play-services-tflite-gpu:16.0.0] C:\Users\user\.gradle\caches\transforms-3\14775590fb41d2475e909707af2a8fb9\transformed\jetified-play-services-tflite-gpu-16.0.0\AndroidManifest.xml:11:13-36
+89            android:exported="false" >
+89-->[com.google.android.gms:play-services-tflite-gpu:16.0.0] C:\Users\user\.gradle\caches\transforms-3\14775590fb41d2475e909707af2a8fb9\transformed\jetified-play-services-tflite-gpu-16.0.0\AndroidManifest.xml:12:13-37
+90            <intent-filter>
+90-->[com.google.android.gms:play-services-tflite-gpu:16.0.0] C:\Users\user\.gradle\caches\transforms-3\14775590fb41d2475e909707af2a8fb9\transformed\jetified-play-services-tflite-gpu-16.0.0\AndroidManifest.xml:14:13-16:29
+91                <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
+91-->[com.google.android.gms:play-services-tflite-gpu:16.0.0] C:\Users\user\.gradle\caches\transforms-3\14775590fb41d2475e909707af2a8fb9\transformed\jetified-play-services-tflite-gpu-16.0.0\AndroidManifest.xml:15:17-94
+91-->[com.google.android.gms:play-services-tflite-gpu:16.0.0] C:\Users\user\.gradle\caches\transforms-3\14775590fb41d2475e909707af2a8fb9\transformed\jetified-play-services-tflite-gpu-16.0.0\AndroidManifest.xml:15:25-91
+92            </intent-filter>
+93
+94            <meta-data
+94-->[com.google.android.gms:play-services-tflite-gpu:16.0.0] C:\Users\user\.gradle\caches\transforms-3\14775590fb41d2475e909707af2a8fb9\transformed\jetified-play-services-tflite-gpu-16.0.0\AndroidManifest.xml:18:13-20:36
+95                android:name="tflite_gpu_dynamite:222612000:required"
+95-->[com.google.android.gms:play-services-tflite-gpu:16.0.0] C:\Users\user\.gradle\caches\transforms-3\14775590fb41d2475e909707af2a8fb9\transformed\jetified-play-services-tflite-gpu-16.0.0\AndroidManifest.xml:19:17-70
+96                android:value="" />
+96-->[com.google.android.gms:play-services-tflite-gpu:16.0.0] C:\Users\user\.gradle\caches\transforms-3\14775590fb41d2475e909707af2a8fb9\transformed\jetified-play-services-tflite-gpu-16.0.0\AndroidManifest.xml:20:17-33
+97            <meta-data
+97-->[com.google.android.gms:play-services-tflite-impl:16.0.0] C:\Users\user\.gradle\caches\transforms-3\e16f340a8515b7098ba172b7a172c7b7\transformed\jetified-play-services-tflite-impl-16.0.0\AndroidManifest.xml:18:13-20:36
+98                android:name="tflite_dynamite:3:required"
+98-->[com.google.android.gms:play-services-tflite-impl:16.0.0] C:\Users\user\.gradle\caches\transforms-3\e16f340a8515b7098ba172b7a172c7b7\transformed\jetified-play-services-tflite-impl-16.0.0\AndroidManifest.xml:19:17-58
+99                android:value="" />
+99-->[com.google.android.gms:play-services-tflite-impl:16.0.0] C:\Users\user\.gradle\caches\transforms-3\e16f340a8515b7098ba172b7a172c7b7\transformed\jetified-play-services-tflite-impl-16.0.0\AndroidManifest.xml:20:17-33
+100        </service>
+101
+102        <activity
+102-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\user\.gradle\caches\transforms-3\e58dee3f032f77096caf052320c989ef\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
+103            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+103-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\user\.gradle\caches\transforms-3\e58dee3f032f77096caf052320c989ef\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:19-85
+104            android:exported="false"
+104-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\user\.gradle\caches\transforms-3\e58dee3f032f77096caf052320c989ef\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:22:19-43
+105            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+105-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\user\.gradle\caches\transforms-3\e58dee3f032f77096caf052320c989ef\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:21:19-78
+106
+107        <meta-data
+107-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\user\.gradle\caches\transforms-3\82ae579b7e9838da6fc36116ee10aea8\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
+108            android:name="com.google.android.gms.version"
+108-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\user\.gradle\caches\transforms-3\82ae579b7e9838da6fc36116ee10aea8\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
+109            android:value="@integer/google_play_services_version" />
+109-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\user\.gradle\caches\transforms-3\82ae579b7e9838da6fc36116ee10aea8\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
+110
+111        <provider
+111-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\user\.gradle\caches\transforms-3\d13ab5703c05af8b6fb9a45604004ac8\transformed\jetified-lifecycle-process-2.2.0\AndroidManifest.xml:25:9-29:43
+112            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+112-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\user\.gradle\caches\transforms-3\d13ab5703c05af8b6fb9a45604004ac8\transformed\jetified-lifecycle-process-2.2.0\AndroidManifest.xml:26:13-79
+113            android:authorities="org.tensorflow.lite.examples.objectdetection.lifecycle-process"
+113-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\user\.gradle\caches\transforms-3\d13ab5703c05af8b6fb9a45604004ac8\transformed\jetified-lifecycle-process-2.2.0\AndroidManifest.xml:27:13-69
+114            android:exported="false"
+114-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\user\.gradle\caches\transforms-3\d13ab5703c05af8b6fb9a45604004ac8\transformed\jetified-lifecycle-process-2.2.0\AndroidManifest.xml:28:13-37
+115            android:multiprocess="true" />
+115-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\user\.gradle\caches\transforms-3\d13ab5703c05af8b6fb9a45604004ac8\transformed\jetified-lifecycle-process-2.2.0\AndroidManifest.xml:29:13-40
+116    </application>
+117
+118</manifest>
