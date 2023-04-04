@@ -5,9 +5,14 @@
     package="org.tensorflow.lite.examples.objectdetection">
     <!-- Enable instant app support -->
     <dist:module dist:instant="true" /> <!-- Declare features -->
-    <uses-feature android:name="android.hardware.camera" /> <!-- Declare permissions -->
+    <!-- <uses-feature android:name="android.hardware.camera" /> &lt;!&ndash; Declare permissions &ndash;&gt; -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature android:name="android.hardware.camera.any" />
 
     <application
         android:allowBackup="true"
@@ -17,14 +22,21 @@
         android:taskAffinity=""
         tools:ignore="AllowBackup">
         <activity
+            android:name=".cameraScene"
+            android:theme="@style/AppTheme"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".chatActivity"
             android:exported="true"
+            android:icon="@mipmap/ic_launcher"
             android:resizeableActivity="true"
             android:rotationAnimation="seamless"
-            android:icon="@mipmap/ic_launcher"
             android:theme="@style/AppTheme"
-            tools:targetApi="O"
-            >
+            tools:targetApi="O">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,11 +59,13 @@
             tools:targetApi="O">
 
             <!-- Main app intent filter -->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+
 
             <!-- Declare notch support -->
             <meta-data

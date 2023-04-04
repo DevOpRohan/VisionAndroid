@@ -4,9 +4,9 @@ import android.content.ContentValues
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.provider.MediaStore
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
@@ -15,7 +15,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,9 +26,8 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.prianshuprasad.assistant.messageData
-import org.tensorflow.lite.examples.objectdetection.fragments.CameraFragment
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
     lateinit var speechIntent: Intent
@@ -132,7 +131,11 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak")
 
 
+//        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//        startActivityForResult(intent, 1)
 
+//        val intent= Intent(this,cameraScene::class.java)
+//        startActivity(intent)
 
 
 
@@ -175,7 +178,7 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
             }
 
-            var url ="https://walrus-app-hodhq.ondigitalocean.app/visiongpt?q="
+            var url ="https://walrus-app-hodhq.ondigitalocean.app/vision?q="
             url+=str;
 
             if(str.contains("open"))
@@ -200,11 +203,15 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                         var pResp=response;
 
                         if(pResp[0]=='@'){
-                            if(pResp.contains("ocr")){
+                            if(pResp.contains("ocr")|| pResp.contains("scene")){
+
+                                val intent= Intent(this@chatActivity,cameraScene::class.java)
+                                startActivity(intent)
 
                             }else if(pResp.contains("exit")){
                                 finish()
-                            }else{
+                            }
+                            else{
 
                                 val item = pResp.substring(1)
                                 val intent = Intent(this@chatActivity, MainActivity::class.java)
@@ -213,6 +220,7 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
 
                             }
+
                         }
 
 
@@ -341,6 +349,7 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 MessageArray.removeLast()
                 MessageArray.add(messageData(it, 1))
                 mAdapter.updatenews(MessageArray)
+                ObjectViewmodel.objectResult=""
 
             }
 

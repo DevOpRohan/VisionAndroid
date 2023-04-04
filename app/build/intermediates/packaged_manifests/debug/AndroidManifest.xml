@@ -10,9 +10,18 @@
         android:targetSdkVersion="32" />
     <!-- Enable instant app support -->
     <dist:module dist:instant="true" /> <!-- Declare features -->
-    <uses-feature android:name="android.hardware.camera" /> <!-- Declare permissions -->
+    <!-- <uses-feature android:name="android.hardware.camera" /> &lt;!&ndash; Declare permissions &ndash;&gt; -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature android:name="android.hardware.camera.any" />
+
+    <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
+    <!-- <uses-sdk android:minSdkVersion="14"/> -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -26,6 +35,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:taskAffinity=""
         android:testOnly="true" >
+        <activity
+            android:name="org.tensorflow.lite.examples.objectdetection.cameraScene"
+            android:exported="false"
+            android:theme="@style/AppTheme" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name="org.tensorflow.lite.examples.objectdetection.chatActivity"
             android:exported="true"
@@ -68,6 +85,21 @@
                 android:value="true" />
         </activity>
 
+        <service
+            android:name="com.google.firebase.components.ComponentDiscoveryService"
+            android:directBootAware="true"
+            android:exported="false" >
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.storage.ktx.FirebaseStorageKtxRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonKtxRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.storage.StorageRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+        </service>
+
         <uses-library
             android:name="androidx.window.extensions"
             android:required="false" />
@@ -103,6 +135,13 @@
             android:name="com.google.android.gms.common.api.GoogleApiActivity"
             android:exported="false"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <provider
+            android:name="com.google.firebase.provider.FirebaseInitProvider"
+            android:authorities="org.tensorflow.lite.examples.objectdetection.firebaseinitprovider"
+            android:directBootAware="true"
+            android:exported="false"
+            android:initOrder="100" />
 
         <meta-data
             android:name="com.google.android.gms.version"
