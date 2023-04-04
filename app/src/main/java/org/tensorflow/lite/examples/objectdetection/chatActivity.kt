@@ -221,14 +221,12 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
                             }
 
+                        }else {
+                            speakOut(pResp)
+                            MessageArray.removeLast()
+                            MessageArray.add(messageData(pResp, 1))
+                            mAdapter.updatenews(MessageArray)
                         }
-
-
-                        speakOut(pResp)
-                        MessageArray.removeLast()
-                        MessageArray.add(messageData(pResp, 1))
-                        mAdapter.updatenews(MessageArray)
-
                     };
                 }
             }, object : Response.ErrorListener {
