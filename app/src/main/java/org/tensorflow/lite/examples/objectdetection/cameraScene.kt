@@ -1,6 +1,8 @@
 package org.tensorflow.lite.examples.objectdetection
 
 import android.app.ProgressDialog
+import android.content.ContentValues
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -15,10 +17,17 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import com.android.volley.DefaultRetryPolicy
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.VolleyError
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.gms.tasks.Task
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.prianshuprasad.assistant.messageData
 import java.io.File
 import java.util.*
 import java.util.concurrent.ExecutorService
@@ -164,8 +173,12 @@ class cameraScene : AppCompatActivity() {
 
                     ref.downloadUrl.addOnSuccessListener {
                         Log.d("Camera "," image uploaded to $it")
+                        sendLink(it.toString())
+
                         // Got the download URL for 'users/me/profile.png'
                     }.addOnFailureListener {
+                        ObjectViewmodel.objectResult= "Image upload failed to firebase"
+                        finish()
                         // Handle any errors
                     }
 
@@ -185,6 +198,47 @@ class cameraScene : AppCompatActivity() {
     }
 
 
+
+    fun sendLink(link:String){
+
+        var url ="https://walrus-app-hodhq.ondigitalocean.app/uploadImageLink?q="
+        url+=link;
+
+
+        val mRequestQueue = Volley.newRequestQueue(this)
+
+        // String Request initialized
+        val mStringRequest = StringRequest(Request.Method.GET, url, object :
+            Response.Listener<String?> {
+            // display the response on screen
+
+
+            override fun onResponse(response: String?) {
+                if (response != null) {
+
+                    var pResp=response;
+                    ObjectViewmodel.objectResult = response
+                    finish()
+
+                };
+            }
+        }, object : Response.ErrorListener {
+            override fun onErrorResponse(error: VolleyError) {
+                ObjectViewmodel.objectResult="An error occured "
+
+                finish()
+            }
+        })
+
+        mStringRequest.retryPolicy = DefaultRetryPolicy(
+            60000,
+            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+        mRequestQueue.add(mStringRequest)
+
+        mRequestQueue.add(mStringRequest)
+
+    }
 
 
 

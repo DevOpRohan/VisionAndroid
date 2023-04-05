@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
-import android.provider.MediaStore
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
@@ -20,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyError
@@ -181,11 +181,11 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
             var url ="https://walrus-app-hodhq.ondigitalocean.app/vision?q="
             url+=str;
 
-            if(str.contains("open"))
-            {
-                val intent = Intent(this@chatActivity,MainActivity::class.java)
-                startActivity(intent)
-            }
+//            if(str.contains("open"))
+//            {
+//                val intent = Intent(this@chatActivity,MainActivity::class.java)
+//                startActivity(intent)
+//            }
 
 
 
@@ -201,6 +201,9 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                     if (response != null) {
 
                         var pResp=response;
+
+                        if(pResp.isEmpty())
+                            return
 
                         if(pResp[0]=='@'){
                             if(pResp.contains("ocr")|| pResp.contains("scene")){
@@ -238,6 +241,11 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                     Log.i(ContentValues.TAG, "Error :" + error.toString())
                 }
             })
+
+            mStringRequest.retryPolicy = DefaultRetryPolicy(
+                60000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
             mRequestQueue.add(mStringRequest)
 
 
