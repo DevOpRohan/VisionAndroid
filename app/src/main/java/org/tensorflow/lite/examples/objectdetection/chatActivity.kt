@@ -178,8 +178,11 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
             }
 
-            var url ="https://walrus-app-hodhq.ondigitalocean.app/vision?q="
+            var url ="https://b27c-35-240-182-128.ngrok.io/vision?q=\""
             url+=str;
+            url+="\""
+
+            Log.d("URL_VISION",url);
 
 //            if(str.contains("open"))
 //            {
@@ -206,7 +209,7 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                             return
 
                         if(pResp[0]=='@'){
-                            if(pResp.contains("ocr")|| pResp.contains("scene")){
+                            if(pResp.contains("ocr")|| pResp.contains("scene")|| pResp.contains("vq")){
 
                                 val intent= Intent(this@chatActivity,cameraScene::class.java)
                                 startActivity(intent)

@@ -7,29 +7,29 @@ public final class adapter extends androidx.recyclerview.widget.RecyclerView.Ada
     private final org.tensorflow.lite.examples.objectdetection.chatActivity listener = null;
     private final java.util.ArrayList<com.prianshuprasad.assistant.messageData> item = null;
     
-    public adapter(@org.jetbrains.annotations.NotNull()
+    public adapter(@org.jetbrains.annotations.NotNull
     org.tensorflow.lite.examples.objectdetection.chatActivity listener) {
         super();
     }
     
-    @org.jetbrains.annotations.NotNull()
-    @java.lang.Override()
-    public androidx.recyclerview.widget.RecyclerView.ViewHolder onCreateViewHolder(@org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
+    @java.lang.Override
+    public androidx.recyclerview.widget.RecyclerView.ViewHolder onCreateViewHolder(@org.jetbrains.annotations.NotNull
     android.view.ViewGroup parent, int viewType) {
         return null;
     }
     
-    @java.lang.Override()
+    @java.lang.Override
     public int getItemCount() {
         return 0;
     }
     
-    @java.lang.Override()
-    public void onBindViewHolder(@org.jetbrains.annotations.NotNull()
+    @java.lang.Override
+    public void onBindViewHolder(@org.jetbrains.annotations.NotNull
     androidx.recyclerview.widget.RecyclerView.ViewHolder holder, int position) {
     }
     
-    public final void updatenews(@org.jetbrains.annotations.NotNull()
+    public final void updatenews(@org.jetbrains.annotations.NotNull
     java.util.ArrayList<com.prianshuprasad.assistant.messageData> Newsarray) {
     }
 }

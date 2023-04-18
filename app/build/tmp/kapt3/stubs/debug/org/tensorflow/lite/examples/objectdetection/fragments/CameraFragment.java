@@ -34,27 +34,27 @@ public final class CameraFragment extends androidx.fragment.app.Fragment impleme
         return null;
     }
     
-    @java.lang.Override()
+    @java.lang.Override
     public void onResume() {
     }
     
-    @java.lang.Override()
+    @java.lang.Override
     public void onDestroyView() {
     }
     
-    @org.jetbrains.annotations.NotNull()
-    @java.lang.Override()
-    public android.view.View onCreateView(@org.jetbrains.annotations.NotNull()
-    android.view.LayoutInflater inflater, @org.jetbrains.annotations.Nullable()
-    android.view.ViewGroup container, @org.jetbrains.annotations.Nullable()
+    @org.jetbrains.annotations.NotNull
+    @java.lang.Override
+    public android.view.View onCreateView(@org.jetbrains.annotations.NotNull
+    android.view.LayoutInflater inflater, @org.jetbrains.annotations.Nullable
+    android.view.ViewGroup container, @org.jetbrains.annotations.Nullable
     android.os.Bundle savedInstanceState) {
         return null;
     }
     
     @android.annotation.SuppressLint(value = {"MissingPermission"})
-    @java.lang.Override()
-    public void onViewCreated(@org.jetbrains.annotations.NotNull()
-    android.view.View view, @org.jetbrains.annotations.Nullable()
+    @java.lang.Override
+    public void onViewCreated(@org.jetbrains.annotations.NotNull
+    android.view.View view, @org.jetbrains.annotations.Nullable
     android.os.Bundle savedInstanceState) {
     }
     
@@ -74,22 +74,22 @@ public final class CameraFragment extends androidx.fragment.app.Fragment impleme
     private final void detectObjects(androidx.camera.core.ImageProxy image) {
     }
     
-    @java.lang.Override()
-    public void onConfigurationChanged(@org.jetbrains.annotations.NotNull()
+    @java.lang.Override
+    public void onConfigurationChanged(@org.jetbrains.annotations.NotNull
     android.content.res.Configuration newConfig) {
     }
     
-    @java.lang.Override()
-    public void onResults(@org.jetbrains.annotations.Nullable()
+    @java.lang.Override
+    public void onResults(@org.jetbrains.annotations.Nullable
     java.util.List<org.tensorflow.lite.task.gms.vision.detector.Detection> results, long inferenceTime, int imageHeight, int imageWidth) {
     }
     
-    @java.lang.Override()
-    public void onError(@org.jetbrains.annotations.NotNull()
+    @java.lang.Override
+    public void onError(@org.jetbrains.annotations.NotNull
     java.lang.String error) {
     }
     
-    @java.lang.Override()
+    @java.lang.Override
     public void onInitialized() {
     }
 }

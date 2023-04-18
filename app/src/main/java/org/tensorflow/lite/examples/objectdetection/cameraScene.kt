@@ -201,9 +201,12 @@ class cameraScene : AppCompatActivity() {
 
     fun sendLink(link:String){
 
-        var url ="https://walrus-app-hodhq.ondigitalocean.app/uploadImageLink?q="
+        var url ="https://b27c-35-240-182-128.ngrok.io/uploadImageLink?q=\""
         url+=link;
 
+        url += "\""
+
+        Log.d("URL_VISION",url)
 
         val mRequestQueue = Volley.newRequestQueue(this)
 

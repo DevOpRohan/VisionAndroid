@@ -10,12 +10,12 @@ public final class OverlayView extends android.view.View {
     private android.graphics.Paint textPaint;
     private float scaleFactor = 1.0F;
     private android.graphics.Rect bounds;
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public static final org.tensorflow.lite.examples.objectdetection.OverlayView.Companion Companion = null;
     private static final int BOUNDING_RECT_TEXT_PADDING = 8;
     
-    public OverlayView(@org.jetbrains.annotations.Nullable()
-    android.content.Context context, @org.jetbrains.annotations.Nullable()
+    public OverlayView(@org.jetbrains.annotations.Nullable
+    android.content.Context context, @org.jetbrains.annotations.Nullable
     android.util.AttributeSet attrs) {
         super(null);
     }
@@ -26,12 +26,12 @@ public final class OverlayView extends android.view.View {
     private final void initPaints() {
     }
     
-    @java.lang.Override()
-    public void draw(@org.jetbrains.annotations.NotNull()
+    @java.lang.Override
+    public void draw(@org.jetbrains.annotations.NotNull
     android.graphics.Canvas canvas) {
     }
     
-    public final void setResults(@org.jetbrains.annotations.NotNull()
+    public final void setResults(@org.jetbrains.annotations.NotNull
     java.util.List<org.tensorflow.lite.task.gms.vision.detector.Detection> detectionResults, int imageHeight, int imageWidth) {
     }
     

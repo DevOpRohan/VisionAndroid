@@ -10,70 +10,70 @@ public final class chatActivity extends androidx.appcompat.app.AppCompatActivity
     public androidx.activity.result.ActivityResultLauncher<android.content.Intent> activityResultLauncher;
     private org.tensorflow.lite.examples.objectdetection.adapter mAdapter;
     public androidx.recyclerview.widget.LinearLayoutManager ll;
-    @org.jetbrains.annotations.Nullable()
+    @org.jetbrains.annotations.Nullable
     private java.lang.String usernamei = "";
     private androidx.recyclerview.widget.RecyclerView rcview;
     private android.content.SharedPreferences storage;
     private android.content.SharedPreferences.Editor Editor;
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     private java.util.ArrayList<com.prianshuprasad.assistant.messageData> MessageArray;
     
     public chatActivity() {
         super();
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final android.content.Intent getSpeechIntent() {
         return null;
     }
     
-    public final void setSpeechIntent(@org.jetbrains.annotations.NotNull()
+    public final void setSpeechIntent(@org.jetbrains.annotations.NotNull
     android.content.Intent p0) {
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final androidx.activity.result.ActivityResultLauncher<android.content.Intent> getActivityResultLauncher() {
         return null;
     }
     
-    public final void setActivityResultLauncher(@org.jetbrains.annotations.NotNull()
+    public final void setActivityResultLauncher(@org.jetbrains.annotations.NotNull
     androidx.activity.result.ActivityResultLauncher<android.content.Intent> p0) {
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final androidx.recyclerview.widget.LinearLayoutManager getLl() {
         return null;
     }
     
-    public final void setLl(@org.jetbrains.annotations.NotNull()
+    public final void setLl(@org.jetbrains.annotations.NotNull
     androidx.recyclerview.widget.LinearLayoutManager p0) {
     }
     
-    @org.jetbrains.annotations.Nullable()
+    @org.jetbrains.annotations.Nullable
     public final java.lang.String getUsernamei() {
         return null;
     }
     
-    public final void setUsernamei(@org.jetbrains.annotations.Nullable()
+    public final void setUsernamei(@org.jetbrains.annotations.Nullable
     java.lang.String p0) {
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final java.util.ArrayList<com.prianshuprasad.assistant.messageData> getMessageArray() {
         return null;
     }
     
-    public final void setMessageArray(@org.jetbrains.annotations.NotNull()
+    public final void setMessageArray(@org.jetbrains.annotations.NotNull
     java.util.ArrayList<com.prianshuprasad.assistant.messageData> p0) {
     }
     
-    @java.lang.Override()
-    protected void onCreate(@org.jetbrains.annotations.Nullable()
+    @java.lang.Override
+    protected void onCreate(@org.jetbrains.annotations.Nullable
     android.os.Bundle savedInstanceState) {
     }
     
-    @org.jetbrains.annotations.NotNull()
-    public final java.lang.String API(@org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
+    public final java.lang.String API(@org.jetbrains.annotations.NotNull
     java.lang.String str) {
         return null;
     }
@@ -81,27 +81,27 @@ public final class chatActivity extends androidx.appcompat.app.AppCompatActivity
     public final void Talk() {
     }
     
-    @java.lang.Override()
-    protected void onActivityResult(int requestCode, int resultCode, @org.jetbrains.annotations.Nullable()
+    @java.lang.Override
+    protected void onActivityResult(int requestCode, int resultCode, @org.jetbrains.annotations.Nullable
     android.content.Intent data) {
     }
     
-    @java.lang.Override()
+    @java.lang.Override
     public void onInit(int status) {
     }
     
     private final void speakOut(java.lang.String str) {
     }
     
-    @java.lang.Override()
+    @java.lang.Override
     public void onDestroy() {
     }
     
-    public final void onitemclicked(@org.jetbrains.annotations.NotNull()
+    public final void onitemclicked(@org.jetbrains.annotations.NotNull
     com.prianshuprasad.assistant.messageData messageData) {
     }
     
-    @java.lang.Override()
+    @java.lang.Override
     protected void onResume() {
     }
     
