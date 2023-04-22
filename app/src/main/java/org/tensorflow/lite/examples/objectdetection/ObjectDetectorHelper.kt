@@ -30,13 +30,13 @@ import org.tensorflow.lite.task.gms.vision.detector.Detection
 import org.tensorflow.lite.task.gms.vision.detector.ObjectDetector
 
 class ObjectDetectorHelper(
-  var threshold: Float = 0.5f,
-  var numThreads: Int = 2,
-  var maxResults: Int = 3,
-  var currentDelegate: Int = 0,
-  var currentModel: Int = 0,
-  val context: Context,
-  val objectDetectorListener: DetectorListener
+    var threshold: Float = 0.5f,
+    var numThreads: Int = 2,
+    var maxResults: Int = 3,
+    var currentDelegate: Int = 0,
+    var currentModel: Int = 0,
+    val context: Context,
+    val objectDetectorListener: DetectorListener
 ) {
 
     private val TAG = "ObjectDetectionHelper"
@@ -57,9 +57,11 @@ class ObjectDetectorHelper(
             TfLiteVision.initialize(context, optionsBuilder.build())
         }.addOnSuccessListener {
             objectDetectorListener.onInitialized()
-        }.addOnFailureListener{
-            objectDetectorListener.onError("TfLiteVision failed to initialize: "
-                    + it.message)
+        }.addOnFailureListener {
+            objectDetectorListener.onError(
+                "TfLiteVision failed to initialize: "
+                        + it.message
+            )
         }
     }
 
@@ -150,20 +152,21 @@ class ObjectDetectorHelper(
         val results = objectDetector?.detect(tensorImage)
         inferenceTime = SystemClock.uptimeMillis() - inferenceTime
         objectDetectorListener.onResults(
-          results,
-          inferenceTime,
-          tensorImage.height,
-          tensorImage.width)
+            results,
+            inferenceTime,
+            tensorImage.height,
+            tensorImage.width
+        )
     }
 
     interface DetectorListener {
         fun onInitialized()
         fun onError(error: String)
         fun onResults(
-          results: MutableList<Detection>?,
-          inferenceTime: Long,
-          imageHeight: Int,
-          imageWidth: Int
+            results: MutableList<Detection>?,
+            inferenceTime: Long,
+            imageHeight: Int,
+            imageWidth: Int
         )
     }
 

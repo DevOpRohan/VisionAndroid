@@ -1,5 +1,5 @@
 package org.tensorflow.lite.examples.objectdetection
-
+import MultipartRequest
 import android.app.ProgressDialog
 import android.content.ContentValues
 import android.content.Intent
@@ -28,16 +28,24 @@ import com.google.common.util.concurrent.ListenableFuture
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.prianshuprasad.assistant.messageData
+import java.io.Console
 import java.io.File
+import java.lang.invoke.ConstantCallSite
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import org.json.JSONObject
+import java.io.ByteArrayOutputStream
+import kotlin.math.max
 
 
 class cameraScene : AppCompatActivity() {
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
     private lateinit var cameraSelector: CameraSelector
-    var preview:PreviewView?=null
+    var preview: PreviewView? = null
     private lateinit var imgCaptureExecutor: ExecutorService
     private var imageCapture: ImageCapture? = null
     var storage: FirebaseStorage? = null
@@ -48,7 +56,7 @@ class cameraScene : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera_scene)
 
-        preview= findViewById<PreviewView>(R.id.preview)
+        preview = findViewById<PreviewView>(R.id.preview)
         cameraProviderFuture = ProcessCameraProvider.getInstance(this)
         cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
         startCamera()
@@ -58,39 +66,38 @@ class cameraScene : AppCompatActivity() {
 
         Handler().postDelayed({
             takePhoto()
-        },1000)
-
-
-
-
+        }, 1000)
     }
-    private fun startCamera(){
+
+
+    private fun startCamera() {
         // listening for data from the camera
         cameraProviderFuture.addListener({
             val cameraProvider = cameraProviderFuture.get()
 
             imageCapture = ImageCapture.Builder().build()
             // connecting a preview use case to the preview in the xml file.
-            val preview = Preview.Builder().build().also{
+            val preview = Preview.Builder().build().also {
                 it.setSurfaceProvider(preview?.surfaceProvider)
             }
-            try{
+            try {
                 // clear all the previous use cases first.
                 cameraProvider.unbindAll()
                 // binding the lifecycle of the camera to the lifecycle of the application.
-                cameraProvider.bindToLifecycle(this,cameraSelector,preview,imageCapture)
+                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
             } catch (e: Exception) {
                 Log.d("Camera", "Use case binding failed")
             }
 
         }, ContextCompat.getMainExecutor(this))
     }
-    var filePath: Uri? =null
-    private fun takePhoto(){
-        imageCapture?.let{
+
+    var filePath: Uri? = null
+    private fun takePhoto() {
+        imageCapture?.let {
             //Create a storage location whose fileName is timestamped in milliseconds.
             val fileName = "JPEG_${System.currentTimeMillis()}"
-            val file = File(externalMediaDirs[0],fileName)
+            val file = File(externalMediaDirs[0], fileName)
 
             // Save the image in the above file
             val outputFileOptions = ImageCapture.OutputFileOptions.Builder(file).build()
@@ -102,11 +109,10 @@ class cameraScene : AppCompatActivity() {
                 outputFileOptions,
                 imgCaptureExecutor,
                 object : ImageCapture.OnImageSavedCallback {
-                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults){
-                        filePath= file.toUri()
-                        Log.i("camaera","The image has been saved in ${file.toUri()}")
-                        runOnUiThread {  uploadImage() }
-
+                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                        filePath = file.toUri()
+                        Log.i("camera", "The image has been saved in ${file.toUri()}")
+                        runOnUiThread { sendImage(file) }
                     }
 
                     override fun onError(exception: ImageCaptureException) {
@@ -123,139 +129,78 @@ class cameraScene : AppCompatActivity() {
     }
 
 
-    private fun uploadImage() {
+    fun processImage(file: File): Bitmap {
+        // Decode the image file into a Bitmap
+        val originalBitmap = BitmapFactory.decodeFile(file.absolutePath)
 
-        if (filePath != null) {
+        // Calculate the scale factor to resize the image
+        val scaleFactor = 524f / max(originalBitmap.width, originalBitmap.height)
 
-            // Code for showing progressDialog while uploading
-            val progressDialog = ProgressDialog(this)
-            progressDialog.setTitle("Uploading...")
-            progressDialog.show()
+        // Create a matrix for the manipulation
+        val matrix = Matrix()
 
-            // Defining the child of storageReference
-            val ref = storageReference
-                ?.child("images/"
-                        + UUID.randomUUID().toString())
+        // Resize the bitmap
+        matrix.postScale(scaleFactor, scaleFactor)
 
-            Log.d("Camera "," image uploaded to $ref")
-            // adding listeners on upload
-            // or failure of image
-            ref?.putFile(filePath!!)
-                ?.addOnSuccessListener {
-                    // Dismiss dialog
+        // Create a new bitmap with the specified size and RGB_565 format
+        val resizedBitmap = Bitmap.createBitmap(
+            originalBitmap,
+            0,
+            0,
+            originalBitmap.width,
+            originalBitmap.height,
+            matrix,
+            true
+        ).copy(Bitmap.Config.RGB_565, false)
 
-                    progressDialog.dismiss()
-                    Toast
-                        .makeText(this@cameraScene,
-                            "Image Uploaded!!",
-                            Toast.LENGTH_SHORT)
-                        .show()
-                }
-                ?.addOnFailureListener { e -> // Error, Image not uploaded
-                    progressDialog.dismiss()
-                    Toast
-                        .makeText(this@cameraScene,
-                            "Failed " + e.message,
-                            Toast.LENGTH_SHORT)
-                        .show()
-                }
-                ?.addOnProgressListener { taskSnapshot ->
-
-                    // Progress Listener for loading
-                    // percentage on the dialog box
-                    val progress = (100.0
-                            * taskSnapshot.bytesTransferred
-                            / taskSnapshot.totalByteCount)
-                    progressDialog.setMessage(
-                        "Uploaded "
-                                + progress.toInt() + "%")
-                }?.addOnCompleteListener {
-
-                    ref.downloadUrl.addOnSuccessListener {
-                        Log.d("Camera "," image uploaded to $it")
-                        sendLink(it.toString())
-
-                        // Got the download URL for 'users/me/profile.png'
-                    }.addOnFailureListener {
-                        ObjectViewmodel.objectResult= "Image upload failed to firebase"
-                        finish()
-                        // Handle any errors
-                    }
-
-
-
-                }
-        }
-
-
-
-
-
-
-
-
-
+        return resizedBitmap
     }
+private fun sendImage(file: File) {
+    val url = "https://9085-54-243-246-120.ngrok.io/uploadImage"
+    // Process the image
+    val resizedBitmap = processImage(file)
+    // Convert the resized bitmap to a byte array
+    val byteArrayOutputStream = ByteArrayOutputStream()
+    resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+    val resizedImageBytes = byteArrayOutputStream.toByteArray()
 
+    val filePartName = "image"
+    val mimeType = "image/jpeg"
+//    val fileBytes = file.readBytes()
 
-
-    fun sendLink(link:String){
-
-        var url ="https://b27c-35-240-182-128.ngrok.io/uploadImageLink?q=\""
-        url+=link;
-
-        url += "\""
-
-        Log.d("URL_VISION",url)
-
-        val mRequestQueue = Volley.newRequestQueue(this)
-
-        // String Request initialized
-        val mStringRequest = StringRequest(Request.Method.GET, url, object :
-            Response.Listener<String?> {
-            // display the response on screen
-
-
-            override fun onResponse(response: String?) {
-                if (response != null) {
-
-                    var pResp=response;
-                    ObjectViewmodel.objectResult = response
-                    finish()
-
-                };
+    val multipartRequest = MultipartRequest(
+        url,
+        Response.Listener { response ->
+            Log.d("sendImage", "Server response: $response")
+            println("Server response: $response")
+            // Parse the JSON response
+            val jsonResponse = JSONObject(response)
+            val result = jsonResponse.getString("message")
+            if (result.isNullOrEmpty() || result.contains("error", ignoreCase = true)) {
+                Log.e("sendImage", "Error in response: $response")
+                ObjectViewmodel.objectResult = "An error occurred"
+            } else {
+                ObjectViewmodel.objectResult = result
             }
-        }, object : Response.ErrorListener {
-            override fun onErrorResponse(error: VolleyError) {
-                ObjectViewmodel.objectResult="An error occured "
-
-                finish()
-            }
-        })
-
-        mStringRequest.retryPolicy = DefaultRetryPolicy(
-            60000,
-            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
-        mRequestQueue.add(mStringRequest)
-
-        mRequestQueue.add(mStringRequest)
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            finish()
+        },
+        Response.ErrorListener { error ->
+            Log.e("sendImage", "Error: $error")
+            ObjectViewmodel.objectResult = "An error occurred"
+            finish()
+        },
+        null,
+        null,
+        filePartName,
+        resizedImageBytes,
+        mimeType
+    )
+    multipartRequest.retryPolicy = DefaultRetryPolicy(
+        60000, // Increase the timeout duration to 60 seconds
+        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+    )
+    val requestQueue = Volley.newRequestQueue(this)
+    requestQueue.add(multipartRequest)
+}
 }
