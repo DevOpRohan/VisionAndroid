@@ -275,10 +275,12 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 MessageArray.add(messageData(res[0], 0))
                 mAdapter.updatenews(MessageArray)
                 API(res[0])
+            } else {
+                // Handle the error case here
+                speakOut("Try again")
             }
         }
     }
-
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {

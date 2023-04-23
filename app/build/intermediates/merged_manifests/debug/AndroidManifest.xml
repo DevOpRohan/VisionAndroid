@@ -47,6 +47,7 @@
             android:name="org.tensorflow.lite.examples.objectdetection.chatActivity"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
             android:resizeableActivity="true"
             android:rotationAnimation="seamless"
             android:theme="@style/AppTheme" >
