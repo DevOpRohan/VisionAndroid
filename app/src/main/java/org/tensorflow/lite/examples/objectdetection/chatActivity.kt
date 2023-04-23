@@ -153,7 +153,7 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 Thread.sleep(1000)
             }
 
-            var url = "https://c03b-54-80-185-234.ngrok-free.app/vision?q=\""
+            var url = "https://6679-44-208-85-154.ngrok-free.app/vision?q=\""
             url += str
             url += "\""
 

@@ -32,8 +32,7 @@
         android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:taskAffinity=""
-        android:testOnly="true" >
+        android:taskAffinity="" >
         <activity
             android:name="org.tensorflow.lite.examples.objectdetection.cameraScene"
             android:exported="false"

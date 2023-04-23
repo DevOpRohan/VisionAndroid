@@ -195,7 +195,7 @@ fun processImage(file: File): Bitmap {
 */
 private fun sendImage(file: File) {
 
-    val url = "https://c03b-54-80-185-234.ngrok-free.app/uploadImage"
+    val url = "https://6679-44-208-85-154.ngrok-free.app/uploadImage"
 
     // Decode the original image file into a Bitmap
     val originalBitmap = BitmapFactory.decodeFile(file.absolutePath)
