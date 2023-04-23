@@ -58,7 +58,7 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-        val welcome = "Welcome, I am Vision. \nI can manage your ToDo List, Locate object live, answer visual questions. \nHow can I help You "
+        val welcome = "Welcome, I am Vision. \nI can manage your ToDo-list, locate object live and answer visual questions. \nHow can I help you?"
 
         tts = TextToSpeech(this, this)
 
