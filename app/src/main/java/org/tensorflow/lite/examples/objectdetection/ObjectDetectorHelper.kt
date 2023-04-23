@@ -107,6 +107,7 @@ class ObjectDetectorHelper(
 
         optionsBuilder.setBaseOptions(baseOptionsBuilder.build())
 
+        /*
         val modelName =
             when (currentModel) {
                 MODEL_MOBILENETV1 -> "mobilenetv1.tflite"
@@ -115,6 +116,9 @@ class ObjectDetectorHelper(
                 MODEL_EFFICIENTDETV2 -> "efficientdet-lite2.tflite"
                 else -> "mobilenetv1.tflite"
             }
+        */
+
+        val modelName =  "mobilenetv1.tflite"
 
         try {
             objectDetector =

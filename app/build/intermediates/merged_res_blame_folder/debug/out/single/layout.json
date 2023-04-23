@@ -1,26 +1,30 @@
 [
     {
-        "merged": "org.tensorflow.lite.examples.objectdetection.app-mergeDebugResources-35:/layout/activity_camera_scene.xml",
-        "source": "org.tensorflow.lite.examples.objectdetection.app-main-38:/layout/activity_camera_scene.xml"
+        "merged": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-mergeDebugResources-35:\\layout\\info_bottom_sheet.xml",
+        "source": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-main-38:\\layout\\info_bottom_sheet.xml"
     },
     {
-        "merged": "org.tensorflow.lite.examples.objectdetection.app-mergeDebugResources-35:/layout/activity_main.xml",
-        "source": "org.tensorflow.lite.examples.objectdetection.app-main-38:/layout/activity_main.xml"
+        "merged": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-mergeDebugResources-35:\\layout\\activity_main.xml",
+        "source": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-main-38:\\layout\\activity_main.xml"
     },
     {
-        "merged": "org.tensorflow.lite.examples.objectdetection.app-mergeDebugResources-35:/layout/chatbox_my.xml",
-        "source": "org.tensorflow.lite.examples.objectdetection.app-main-38:/layout/chatbox_my.xml"
+        "merged": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-mergeDebugResources-35:\\layout\\fragment_camera.xml",
+        "source": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-main-38:\\layout\\fragment_camera.xml"
     },
     {
-        "merged": "org.tensorflow.lite.examples.objectdetection.app-mergeDebugResources-35:/layout/activity_chat.xml",
-        "source": "org.tensorflow.lite.examples.objectdetection.app-main-38:/layout/activity_chat.xml"
+        "merged": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-mergeDebugResources-35:\\layout\\chatbox_my.xml",
+        "source": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-main-38:\\layout\\chatbox_my.xml"
     },
     {
         "merged": "org.tensorflow.lite.examples.objectdetection.app-mergeDebugResources-35:/layout/fragment_camera.xml",
         "source": "org.tensorflow.lite.examples.objectdetection.app-main-38:/layout/fragment_camera.xml"
     },
     {
-        "merged": "org.tensorflow.lite.examples.objectdetection.app-mergeDebugResources-35:/layout/info_bottom_sheet.xml",
-        "source": "org.tensorflow.lite.examples.objectdetection.app-main-38:/layout/info_bottom_sheet.xml"
+        "merged": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-mergeDebugResources-35:\\layout\\activity_camera_scene.xml",
+        "source": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-main-38:\\layout\\activity_camera_scene.xml"
+    },
+    {
+        "merged": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-mergeDebugResources-35:\\layout\\activity_chat.xml",
+        "source": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-main-38:\\layout\\activity_chat.xml"
     }
 ]

@@ -134,7 +134,7 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 Thread.sleep(1000)
             }
 
-            var url = "https://9085-54-243-246-120.ngrok.io/vision?q=\""
+            var url = "https://c03b-54-80-185-234.ngrok-free.app/vision?q=\""
             url += str
             url += "\""
 

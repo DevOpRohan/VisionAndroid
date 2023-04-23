@@ -37,9 +37,18 @@ import java.util.concurrent.Executors
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+
+//Experimental Feature to use MLKIT for OCR on  Android
+/*
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+ */
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import kotlin.math.max
+import kotlin.math.round
+import kotlin.math.roundToInt
 
 
 class cameraScene : AppCompatActivity() {
@@ -97,6 +106,7 @@ class cameraScene : AppCompatActivity() {
         imageCapture?.let {
             //Create a storage location whose fileName is timestamped in milliseconds.
             val fileName = "JPEG_${System.currentTimeMillis()}"
+//            val fileName = "PNG_${System.currentTimeMillis()}.png"
             val file = File(externalMediaDirs[0], fileName)
 
             // Save the image in the above file
@@ -121,52 +131,99 @@ class cameraScene : AppCompatActivity() {
                             "Error taking photo",
                             Toast.LENGTH_LONG
                         ).show()
-                        Log.d("camear", "Error taking photo:$exception")
+                        Log.d("camera", "Error taking photo:$exception")
                     }
 
                 })
         }
     }
 
+fun processImage(file: File): Bitmap {
+    // Decode the image file into a Bitmap
+    val originalBitmap = BitmapFactory.decodeFile(file.absolutePath)
 
-    fun processImage(file: File): Bitmap {
-        // Decode the image file into a Bitmap
-        val originalBitmap = BitmapFactory.decodeFile(file.absolutePath)
+    // Calculate the scale factor to resize the image
+    val scaleFactor = 512f / max(originalBitmap.width, originalBitmap.height)
 
-        // Calculate the scale factor to resize the image
-        val scaleFactor = 524f / max(originalBitmap.width, originalBitmap.height)
+    // Calculate the new width and height, rounding to the nearest multiple of 64
+    val newWidth = (originalBitmap.width * scaleFactor / 64.0).roundToInt() * 64
+    val newHeight = (originalBitmap.height * scaleFactor / 64.0).roundToInt() * 64
 
-        // Create a matrix for the manipulation
-        val matrix = Matrix()
+    // Create a matrix for the manipulation
+    val matrix = Matrix()
 
-        // Resize the bitmap
-        matrix.postScale(scaleFactor, scaleFactor)
+    // Resize the bitmap
+    matrix.postScale(newWidth.toFloat() / originalBitmap.width, newHeight.toFloat() / originalBitmap.height)
 
-        // Create a new bitmap with the specified size and RGB_565 format
-        val resizedBitmap = Bitmap.createBitmap(
-            originalBitmap,
-            0,
-            0,
-            originalBitmap.width,
-            originalBitmap.height,
-            matrix,
-            true
-        ).copy(Bitmap.Config.RGB_565, false)
+    // Create a new bitmap with the specified size and RGB_565 format
+    val resizedBitmap = Bitmap.createBitmap(
+        originalBitmap,
+        0,
+        0,
+        originalBitmap.width,
+        originalBitmap.height,
+        matrix,
+        true
+    ).copy(Bitmap.Config.RGB_565, false)
 
-        return resizedBitmap
+    return resizedBitmap
+}
+
+    /*
+        Experimental Features: Performing OCR on Android
+     */
+    /*
+    private fun extractTextFromImage(bitmap: Bitmap, onSuccess: (String) -> Unit, onFailure: (Exception) -> Unit) {
+        // Create an InputImage from the Bitmap
+        val inputImage = InputImage.fromBitmap(bitmap, 0)
+
+        // Create an instance of TextRecognizer
+        val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+
+        // Process the image
+        recognizer.process(inputImage)
+            .addOnSuccessListener { visionText ->
+                // Extract the text from the result
+                val extractedText = visionText.text
+                onSuccess(extractedText)
+            }
+            .addOnFailureListener { exception ->
+                onFailure(exception)
+            }
     }
+
+*/
 private fun sendImage(file: File) {
-    val url = "https://9085-54-243-246-120.ngrok.io/uploadImage"
+
+    val url = "https://c03b-54-80-185-234.ngrok-free.app/uploadImage"
+
+    // Decode the original image file into a Bitmap
+    val originalBitmap = BitmapFactory.decodeFile(file.absolutePath)
+
+    // Extract text from the original image and display it in the debug console
+    /*
+    extractTextFromImage(
+        originalBitmap,
+        onSuccess = { extractedText ->
+            Log.i("sendImage", "Extracted text: $extractedText")
+        },
+        onFailure = { exception ->
+            Log.e("sendImage", "Error extracting text: $exception")
+        }
+    )
+    */
+
     // Process the image
     val resizedBitmap = processImage(file)
+
     // Convert the resized bitmap to a byte array
     val byteArrayOutputStream = ByteArrayOutputStream()
-    resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+    resizedBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
     val resizedImageBytes = byteArrayOutputStream.toByteArray()
 
     val filePartName = "image"
+//    val mimeType = "image/png"
     val mimeType = "image/jpeg"
-//    val fileBytes = file.readBytes()
 
     val multipartRequest = MultipartRequest(
         url,
