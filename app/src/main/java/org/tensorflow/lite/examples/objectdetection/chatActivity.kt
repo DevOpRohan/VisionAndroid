@@ -6,10 +6,12 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
+import android.speech.tts.Voice
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
@@ -56,16 +58,17 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+        val welcome = "Welcome, I am Vision. \nI can manage your ToDo List, Locate object live, answer visual questions. \nHow can I help You "
 
         tts = TextToSpeech(this, this)
 
         val settings = applicationContext.getSharedPreferences("Userdata", 0)
         storage = applicationContext.getSharedPreferences("Userdata", 0)
         Editor = storage.edit()
-        MessageArray.add(messageData("Welcome", 0))
+        MessageArray.add(messageData(welcome, 0))
 
         Handler().postDelayed({
-            speakOut("Welcome")
+            speakOut(welcome)
         }, 1000)
 
         rcview = findViewById(R.id.recyclerView)
@@ -172,12 +175,14 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                         if (pResp.startsWith("@")) {
                             val pRespTrimmed = pResp.substring(1)
                             if (pResp.contains("ocr") || pRespTrimmed.contains("vq")) {
+                                speakOut("Please, keep your phone steady for a second and wait from my response")
                                 val intent = Intent(this@chatActivity, cameraScene::class.java)
                                 startActivity(intent)
                             } else if (pRespTrimmed.contains("exit")) {
                                 finish()
                             } else {
                                 val item = pRespTrimmed
+                                speakOut("To Loacte"+item+"Please, move your camera arround")
                                 val intent = Intent(this@chatActivity, MainActivity::class.java)
                                 intent.putExtra("object", item)
                                 startActivity(intent)
@@ -219,33 +224,7 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
         return "Reply from API"
     }
-    /*
-        fun Talk() {
-            runOnUiThread {
-                while (true) {
-                    if (!tts!!.isSpeaking)
-                        break
-                    Thread.sleep(1000)
-                }
 
-                speakOut(" say Something")
-                Thread.sleep(1000)
-                while (true) {
-                    if (!tts!!.isSpeaking)
-                        break
-                    Thread.sleep(1000)
-                }
-
-                try {
-                    startActivityForResult(speechIntent, 1)
-                } catch (e: Exception) {
-                    Toast.makeText(
-                        this, " " + e.message, Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
-    */
     fun Talk() {
         if (!SpeechRecognizer.isRecognitionAvailable(this)) {
             Toast.makeText(this, "Speech recognition is not available on this device", Toast.LENGTH_SHORT).show()
@@ -264,6 +243,7 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -272,11 +252,15 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 val res: ArrayList<String> =
                     data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS) as ArrayList<String>
 
-                MessageArray.add(messageData(res[0], 0))
-                mAdapter.updatenews(MessageArray)
-                API(res[0])
+                if (res[0].isNotEmpty()) {
+                    speakOut("processing")
+                    MessageArray.add(messageData(res[0], 0))
+                    mAdapter.updatenews(MessageArray)
+                    API(res[0])
+                } else {
+                    speakOut("Try again")
+                }
             } else {
-                // Handle the error case here
                 speakOut("Try again")
             }
         }
@@ -288,7 +272,7 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e("TTS", "The Language not supported!")
-                Toast.makeText(this, "Something BAd Occured", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Something bad happened", Toast.LENGTH_LONG).show()
             }
         }
     }
