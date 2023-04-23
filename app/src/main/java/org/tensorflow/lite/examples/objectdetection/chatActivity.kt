@@ -50,6 +50,9 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var isWaitingForResponse = false
     private var isTTSSpeaking = false
 
+    private var lastTapTime: Long = 0
+    private val doubleTapInterval: Long = 300 // Time in milliseconds
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
@@ -87,10 +90,19 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 Talk()
             }
         }
+//        touchme.setOnClickListener {
+//            if (!isWaitingForResponse && !isTTSSpeaking) {
+//                Talk()
+//            }
+//        }
         touchme.setOnClickListener {
-            if (!isWaitingForResponse && !isTTSSpeaking) {
-                Talk()
+            val currentTime = System.currentTimeMillis()
+            if (currentTime - lastTapTime <= doubleTapInterval) {
+                if (!isWaitingForResponse && !isTTSSpeaking) {
+                    Talk()
+                }
             }
+            lastTapTime = currentTime
         }
 
         if (ContextCompat.checkSelfPermission(
@@ -107,6 +119,9 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
         speechIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
 
+        speechIntent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 10000)
+        speechIntent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 10000)
+
         intent.putExtra(
             RecognizerIntent.EXTRA_LANGUAGE_MODEL,
             RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
@@ -118,6 +133,7 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         )
 
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak")
+
     }
 
     fun API(str: String): String {
@@ -203,30 +219,48 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
         return "Reply from API"
     }
+    /*
+        fun Talk() {
+            runOnUiThread {
+                while (true) {
+                    if (!tts!!.isSpeaking)
+                        break
+                    Thread.sleep(1000)
+                }
 
+                speakOut(" say Something")
+                Thread.sleep(1000)
+                while (true) {
+                    if (!tts!!.isSpeaking)
+                        break
+                    Thread.sleep(1000)
+                }
+
+                try {
+                    startActivityForResult(speechIntent, 1)
+                } catch (e: Exception) {
+                    Toast.makeText(
+                        this, " " + e.message, Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    */
     fun Talk() {
+        if (!SpeechRecognizer.isRecognitionAvailable(this)) {
+            Toast.makeText(this, "Speech recognition is not available on this device", Toast.LENGTH_SHORT).show()
+            return
+        }
         runOnUiThread {
-            while (true) {
-                if (!tts!!.isSpeaking)
-                    break
-                Thread.sleep(1000)
-            }
-
-            speakOut(" say Something")
-            Thread.sleep(1000)
-            while (true) {
-                if (!tts!!.isSpeaking)
-                    break
-                Thread.sleep(1000)
-            }
-
-            try {
-                startActivityForResult(speechIntent, 1)
-            } catch (e: Exception) {
-                Toast.makeText(
-                    this, " " + e.message, Toast.LENGTH_SHORT
-                ).show()
-            }
+            speakOut("Say something", Runnable {
+                try {
+                    startActivityForResult(speechIntent, 1)
+                } catch (e: Exception) {
+                    Toast.makeText(
+                        this, " " + e.message, Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
         }
     }
 
@@ -245,6 +279,7 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
+
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
             val result = tts!!.setLanguage(Locale.getDefault())
@@ -256,23 +291,28 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
-private fun speakOut(str: String) {
-    val text = str
-    isTTSSpeaking = true
-    tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
-    tts!!.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-        override fun onStart(utteranceId: String?) {
+    private fun speakOut(str: String, onDone: Runnable? = null) {
+        if (tts == null) {
+            Log.e("TTS", "TextToSpeech engine is not initialized")
+            return
         }
+        val text = str
+        isTTSSpeaking = true
+        tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+        tts!!.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+            override fun onStart(utteranceId: String?) {
+            }
 
-        override fun onDone(utteranceId: String?) {
-            isTTSSpeaking = false
-        }
+            override fun onDone(utteranceId: String?) {
+                isTTSSpeaking = false
+                onDone?.run()
+            }
 
-        override fun onError(utteranceId: String?) {
-            isTTSSpeaking = false
-        }
-    })
-}
+            override fun onError(utteranceId: String?) {
+                isTTSSpeaking = false
+            }
+        })
+    }
     public override fun onDestroy() {
         if (tts != null) {
             tts!!.stop()

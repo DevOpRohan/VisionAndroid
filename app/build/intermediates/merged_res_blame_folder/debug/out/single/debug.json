@@ -4,10 +4,6 @@
         "source": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-main-38:\\drawable\\ic_plus.xml"
     },
     {
-        "merged": "org.tensorflow.lite.examples.objectdetection.app-merged_res-36:/layout_fragment_camera.xml.flat",
-        "source": "org.tensorflow.lite.examples.objectdetection.app-main-38:/layout/fragment_camera.xml"
-    },
-    {
         "merged": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-merged_res-36:\\navigation_nav_graph.xml.flat",
         "source": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-main-38:\\navigation\\nav_graph.xml"
     },
@@ -90,6 +86,10 @@
     {
         "merged": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-merged_res-36:\\color_selector_ic.xml.flat",
         "source": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-main-38:\\color\\selector_ic.xml"
+    },
+    {
+        "merged": "org.tensorflow.lite.examples.objectdetection.app-merged_res-36:/layout_activity_chat.xml.flat",
+        "source": "org.tensorflow.lite.examples.objectdetection.app-main-38:/layout/activity_chat.xml"
     },
     {
         "merged": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-merged_res-36:\\mipmap-xhdpi_ic_launcher_foreground.png.flat",

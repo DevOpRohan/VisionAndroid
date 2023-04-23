@@ -16,15 +16,15 @@
         "source": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-main-38:\\layout\\chatbox_my.xml"
     },
     {
-        "merged": "org.tensorflow.lite.examples.objectdetection.app-mergeDebugResources-35:/layout/fragment_camera.xml",
-        "source": "org.tensorflow.lite.examples.objectdetection.app-main-38:/layout/fragment_camera.xml"
-    },
-    {
-        "merged": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-mergeDebugResources-35:\\layout\\activity_camera_scene.xml",
-        "source": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-main-38:\\layout\\activity_camera_scene.xml"
+        "merged": "org.tensorflow.lite.examples.objectdetection.app-mergeDebugResources-35:/layout/activity_chat.xml",
+        "source": "org.tensorflow.lite.examples.objectdetection.app-main-38:/layout/activity_chat.xml"
     },
     {
         "merged": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-mergeDebugResources-35:\\layout\\activity_chat.xml",
         "source": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-main-38:\\layout\\activity_chat.xml"
+    },
+    {
+        "merged": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-mergeDebugResources-35:\\layout\\activity_camera_scene.xml",
+        "source": "C:\\Users\\rohan\\.gradle\\daemon\\7.6\\org.tensorflow.lite.examples.objectdetection.app-main-38:\\layout\\activity_camera_scene.xml"
     }
 ]
