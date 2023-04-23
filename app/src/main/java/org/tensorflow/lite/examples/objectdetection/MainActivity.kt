@@ -23,22 +23,58 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.tensorflow.lite.examples.objectdetection.databinding.ActivityMainBinding
-
-/**
- * Main entry point into our app. This app follows the single-activity pattern, and all
- * functionality is implemented in the form of fragments.
- */
+//
+///**
+// * Main entry point into our app. This app follows the single-activity pattern, and all
+// * functionality is implemented in the form of fragments.
+// */
+//class MainActivity : AppCompatActivity() {
+//
+//    private lateinit var activityMainBinding: ActivityMainBinding
+//
+//    companion object{
+//        var item:String=""
+//
+//    }
+//
+////    val objectViewmodel by viewModels<ObjectViewmodel>()
+//
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+//        setContentView(activityMainBinding.root)
+//
+//        item = intent?.getStringExtra("object").toString()
+//
+//        Toast.makeText(this,"Finding $item",Toast.LENGTH_LONG).show()
+//
+//        Handler().postDelayed({
+//
+//            ObjectViewmodel.objectResult="$item not found"
+//
+//            finish()
+//        },20000)
+//
+//    }
+//
+//    override fun onBackPressed() {
+//        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+//            // Workaround for Android Q memory leak issue in IRequestFinishCallback$Stub.
+//            // (https://issuetracker.google.com/issues/139738913)
+//            finishAfterTransition()
+//        } else {
+//            super.onBackPressed()
+//        }
+//    }
+//}
 class MainActivity : AppCompatActivity() {
 
     private lateinit var activityMainBinding: ActivityMainBinding
 
-    companion object{
-        var item:String=""
-
+    companion object {
+        var item: String = ""
     }
-
-//    val objectViewmodel by viewModels<ObjectViewmodel>()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,15 +83,7 @@ class MainActivity : AppCompatActivity() {
 
         item = intent?.getStringExtra("object").toString()
 
-        Toast.makeText(this,"Finding $item",Toast.LENGTH_LONG).show()
-
-        Handler().postDelayed({
-
-            ObjectViewmodel.objectResult="$item not found"
-
-            finish()
-        },30000)
-
+        Toast.makeText(this, "Finding $item", Toast.LENGTH_LONG).show()
     }
 
     override fun onBackPressed() {

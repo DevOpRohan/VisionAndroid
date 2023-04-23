@@ -182,7 +182,7 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                                 finish()
                             } else {
                                 val item = pRespTrimmed
-                                speakOut("To Loacte"+item+"Please, move your camera arround")
+                                speakOut("To Locate"+item+"Please, move your camera arround")
                                 val intent = Intent(this@chatActivity, MainActivity::class.java)
                                 intent.putExtra("object", item)
                                 startActivity(intent)
@@ -310,21 +310,20 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     fun onitemclicked(messageData: messageData) {
     }
 
-    override fun onResume() {
-        super.onResume()
+override fun onResume() {
+    super.onResume()
 
-        if (ObjectViewmodel.objectResult != "") {
-            val it = ObjectViewmodel.objectResult
-            if (it != "") {
-                speakOut(it)
-                MessageArray.removeLast()
-                MessageArray.add(messageData(it, 1))
-                mAdapter.updatenews(MessageArray)
-                ObjectViewmodel.objectResult = ""
-            }
-        }
+    if (ObjectViewmodel.objectResult.isNotEmpty()) {
+        val it = ObjectViewmodel.objectResult
+        speakOut(it)
+        MessageArray.removeLast()
+        MessageArray.add(messageData(it, 1))
+        mAdapter.updatenews(MessageArray)
+
+        // Clear the objectResult after it's spoken and the message array is updated
+        ObjectViewmodel.objectResult = ""
     }
-
+}
     fun scrolltoPos(x: Int) {
         rcview.scrollToPosition(x)
     }

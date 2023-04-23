@@ -38,11 +38,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import org.tensorflow.lite.examples.objectdetection.*
-import java.util.LinkedList
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import org.tensorflow.lite.examples.objectdetection.databinding.FragmentCameraBinding
 import org.tensorflow.lite.task.gms.vision.detector.Detection
+import java.util.*
 
 class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener {
 
@@ -87,9 +87,9 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener {
     }
 
     override fun onCreateView(
-      inflater: LayoutInflater,
-      container: ViewGroup?,
-      savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _fragmentCameraBinding = FragmentCameraBinding.inflate(inflater, container, false)
 
@@ -294,57 +294,111 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener {
 
     // Update UI after objects have been detected. Extracts original image height/width
     // to scale and place bounding boxes properly through OverlayView
+//    override fun onResults(
+//        results: MutableList<Detection>?,
+//        inferenceTime: Long,
+//        imageHeight: Int,
+//        imageWidth: Int
+//    ) {
+//        if(!flag)
+//            return
+//
+////        Log.d("Categories","$results")
+//
+//
+//        if(flag) {
+//            activity?.runOnUiThread {
+//                fragmentCameraBinding.bottomSheetLayout.inferenceTimeVal.text =
+//                    String.format("%d ms", inferenceTime)
+//
+//                // Pass necessary information to OverlayView for drawing on the canvas
+//                fragmentCameraBinding.overlay.setResults(
+//                    results ?: LinkedList<Detection>(),
+//                    imageHeight,
+//                    imageWidth
+//                )
+//
+//                // Force a redraw
+//                fragmentCameraBinding.overlay.invalidate()
+//            }
+//        }
+//        if (results != null) {
+//            for(itemlist in results){
+//
+//                for(item in itemlist.categories){
+//
+//                    if(MainActivity.item.lowercase() ==item.label)
+//                    {
+//
+//                        ObjectViewmodel.objectResult="${item.label} found"
+//                        flag= false
+//
+//                        (activity as MainActivity).finish()
+//
+////                        return
+//
+//                    }
+//
+//                    Log.d("Categories","$itemlist")
+//                }
+//
+//            }
+//        }
+//
+//    }
+    private var objectNotFoundTimer: Timer? = null
+    private val objectNotFoundTimeout: Long = 30000 // 30 seconds
+
     override fun onResults(
-      results: MutableList<Detection>?,
-      inferenceTime: Long,
-      imageHeight: Int,
-      imageWidth: Int
+        results: MutableList<Detection>?,
+        inferenceTime: Long,
+        imageHeight: Int,
+        imageWidth: Int
     ) {
-        if(!flag)
+        if (!flag)
             return
 
-//        Log.d("Categories","$results")
-
-
-        if(flag) {
-            activity?.runOnUiThread {
-                fragmentCameraBinding.bottomSheetLayout.inferenceTimeVal.text =
-                    String.format("%d ms", inferenceTime)
-
-                // Pass necessary information to OverlayView for drawing on the canvas
-                fragmentCameraBinding.overlay.setResults(
-                    results ?: LinkedList<Detection>(),
-                    imageHeight,
-                    imageWidth
-                )
-
-                // Force a redraw
-                fragmentCameraBinding.overlay.invalidate()
-            }
-        }
         if (results != null) {
-            for(itemlist in results){
-
-                for(item in itemlist.categories){
-
-                    if(MainActivity.item.lowercase() ==item.label)
-                    {
-
-                        ObjectViewmodel.objectResult="${item.label} found"
-                        flag= false
-
+            for (itemlist in results) {
+                for (item in itemlist.categories) {
+                    if (MainActivity.item.lowercase() == item.label) {
+                        ObjectViewmodel.objectResult = "${item.label} found"
+                        flag = false
+                        objectNotFoundTimer?.cancel()
                         (activity as MainActivity).finish()
-
-//                        return
-
                     }
-
-                    Log.d("Categories","$itemlist")
                 }
-
             }
         }
 
+        activity?.runOnUiThread {
+            fragmentCameraBinding.bottomSheetLayout.inferenceTimeVal.text =
+                String.format("%d ms", inferenceTime)
+
+            // Pass necessary information to OverlayView for drawing on the canvas
+            fragmentCameraBinding.overlay.setResults(
+                results ?: LinkedList<Detection>(),
+                imageHeight,
+                imageWidth
+            )
+
+            // Force a redraw
+            fragmentCameraBinding.overlay.invalidate()
+        }
+
+        // Start the timer if it's not already started
+        if (objectNotFoundTimer == null) {
+            objectNotFoundTimer = Timer()
+            objectNotFoundTimer?.schedule(object : TimerTask() {
+                override fun run() {
+                    if (flag) {
+                        ObjectViewmodel.objectResult = "${MainActivity.item} not found"
+                        flag = false
+                        (activity as MainActivity).finish()
+                    }
+                }
+            }, objectNotFoundTimeout)
+        }
     }
 
     override fun onError(error: String) {

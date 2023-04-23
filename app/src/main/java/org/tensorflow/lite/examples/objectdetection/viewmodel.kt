@@ -5,6 +5,6 @@ import androidx.lifecycle.ViewModel
 
 class ObjectViewmodel() {
     companion object {
-       var objectResult=""
+        var objectResult=""
     }
 }
