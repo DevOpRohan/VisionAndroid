@@ -52,8 +52,11 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var isWaitingForResponse = false
     private var isTTSSpeaking = false
 
+    //To control Double-Tap Functionality
     private var lastTapTime: Long = 0
     private val doubleTapInterval: Long = 300 // Time in milliseconds
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +68,7 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         val settings = applicationContext.getSharedPreferences("Userdata", 0)
         storage = applicationContext.getSharedPreferences("Userdata", 0)
         Editor = storage.edit()
-        MessageArray.add(messageData(welcome, 0))
+        MessageArray.add(messageData(welcome, 1))
 
         Handler().postDelayed({
             speakOut(welcome)
@@ -153,7 +156,7 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 Thread.sleep(1000)
             }
 
-            var url = "https://6679-44-208-85-154.ngrok-free.app/vision?q=\""
+            var url = "https://9f85-54-80-185-234.ngrok-free.app/vision?q=\""
             url += str
             url += "\""
 
