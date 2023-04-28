@@ -115,7 +115,7 @@ class cameraScene : AppCompatActivity() {
     }
 
     private fun sendImage(bitmap: Bitmap) {
-        val url = "https://0645-54-80-185-234.ngrok-free.app/uploadImage"
+        val url = "https://856c-54-80-185-234.ngrok-free.app/uploadImage"
 
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 60, byteArrayOutputStream)
