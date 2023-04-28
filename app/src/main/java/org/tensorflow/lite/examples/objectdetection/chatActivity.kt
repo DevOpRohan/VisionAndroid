@@ -156,7 +156,7 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 Thread.sleep(1000)
             }
 
-            var url = "https://9f85-54-80-185-234.ngrok-free.app/vision?q=\""
+            var url = "https://0645-54-80-185-234.ngrok-free.app/vision?q=\""
             url += str
             url += "\""
 
@@ -219,8 +219,8 @@ class chatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             })
 
             mStringRequest.retryPolicy = DefaultRetryPolicy(
-                60000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                40000,
+                2,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
             )
             mRequestQueue.add(mStringRequest)

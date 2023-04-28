@@ -31,6 +31,7 @@
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
+        android:label="Vision"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:taskAffinity="" >
         <activity
